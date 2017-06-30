@@ -1,0 +1,72 @@
+
+<!doctype html>
+<html>
+<head>
+	<title>Leave Management</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<style>
+		body 		{ padding-top:80px; }
+	</style>
+</head>
+<body>
+<div class="container">
+
+<div class="col-sm-6 col-sm-offset-3">
+
+	<% if (user.local.role=="employee") { %>
+	<form action="/request_leave" method="post">
+		<div class="form-group">
+			<label>Start Date</label>
+			<input type="date" class="form-control" name="startdate">
+		</div>
+		 <div class="form-group">
+			<label>End Date</label>
+			<input type="date" class="form-control" name="enddate">
+		</div>
+               
+               <div class="form-group">
+			<label>LeaveType</label>
+			<input type="text" class="form-control" name="leavetype">
+		</div>
+               <div class="form-group">
+			<label>Role</label>
+			<input type="text" class="form-control" name="role">
+		</div>
+
+
+
+		<button  class="btn btn-warning btn-lg">Create Leave</button>
+	</form>
+           <button  class="btn btn-warning btn-lg"><a href="/showleave" method="get">Show Leave</a></button>
+        <% } else { %>
+                 <table>
+			  <tr>
+			    <th>createdAt</th><th>createdAt</th><th>Leave Type</th><th>Reason</th>
+			  </tr>
+
+			  <% for (var i = 0; i < user.length; i++) { %>
+			    <tr>
+			      <td> <%= user.local.createdat %><br></td>
+			      <td> <%= user.local.name %><br></td>
+                              <td> <%= user.local.leavetype %><br></td>
+                              <td> <%= user.local.reason %></td>
+			    </tr>    
+			  <% } %>
+			</table>
+	   
+
+           <button  class="btn btn-warning btn-lg"><a href="/showleaves" method="get">Show All Leave</a></button>
+           <button  class="btn btn-warning btn-lg"><a href="/approveleaves" method="put">Approve</a></button>
+       <%}%>
+         <div class="page-header text-center">
+		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+	</div>
+
+	<hr>
+</div>
+
+</div>
+
+</body>
+</html>
